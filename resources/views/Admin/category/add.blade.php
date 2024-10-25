@@ -20,7 +20,10 @@
             <div class="mb-3">
                 <label for="" class="form-label">Name</label>
                 <input type="text" name="name" class="form-control" />
-                <small  class="text-danger"></small>
+                @error('name')
+                <small  class="text-danger">{{$message}}</small>
+                @enderror
+            
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Image</label>
@@ -33,7 +36,7 @@
                 <small  class="text-danger"></small>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" value="" />
+                <input class="form-check-input" type="checkbox"  name="status" />
                 <label class="form-check-label" for="">status </label>
             </div>
                 <button  type="submit" class="btn btn-primary btn-block"   >
