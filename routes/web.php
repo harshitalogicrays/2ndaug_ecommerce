@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\dashboardcontroller;
 
 /*
@@ -26,6 +27,16 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('dashboard',[dashboardcontroller::class,'index']);
     Route::controller(CategoryController::class)->group(function(){
         Route::prefix('category')->group(function(){
+            Route::get('view','index');
+            Route::get('add','create');
+            Route::post('add','store');
+            Route::get('delete/{id}','delete');
+            Route::get('edit/{id}','edit');
+            Route::put('update/{id}','update');
+        });
+    });
+    Route::controller(ProductController::class)->group(function(){
+        Route::prefix('product')->group(function(){
             Route::get('view','index');
             Route::get('add','create');
             Route::post('add','store');
