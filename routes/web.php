@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\dashboardcontroller;
 
@@ -15,10 +16,6 @@ use App\Http\Controllers\Admin\dashboardcontroller;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -43,8 +40,15 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->group(function(){
             Route::get('delete/{id}','delete');
             Route::get('edit/{id}','edit');
             Route::put('update/{id}','update');
+            Route::get('destroy/{id}','destroy');
         });
     });
+});
+
+Route::controller(FrontendController::class)->group(function(){
+    Route::get('/','index');
+    Route::get('/collection','collection');
+    Route::get('/collection/{id}','cproducts');
 });
 
 
