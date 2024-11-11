@@ -49,6 +49,7 @@ Route::controller(FrontendController::class)->group(function(){
     Route::get('/','index');
     Route::get('/collection','collection');
     Route::get('/collection/{id}','cproducts');
+    Route::get('/collection/{category}/{product}','viewproduct');
 });
 
 

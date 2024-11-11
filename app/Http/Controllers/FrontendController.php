@@ -18,9 +18,21 @@ class FrontendController extends Controller
     function cproducts($id){
         $category = Categories::find($id);
         if($category){
-            $cname = $category->name;
-            $products = $category->products()->get();
-            return view('cproducts',compact('products','cname'));
+            $products = $category->products()->where('status','=','0')->get();
+            return view('cproducts',compact('products','category'));
         }
+    }
+    function viewproduct($category,$product){
+        $category = Categories::find($category);
+        if($category){
+            $product = $category->products()->where('name','=',$product)->where('status','=','0')->first();
+            if($product){
+                return view('viewproduct',compact('category','product'));
+            }
+            else{
+                return redirect()->back();
+            }
+        }
+      
     }
 }
