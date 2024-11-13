@@ -27,13 +27,15 @@
                         </div>
                         <div class="mt-2">
                             <div class="input-group">
-                                <span class="btn btn1">-</span>
-                                <input type="text" readonly class="input-quantity" value={{$qtyCount}} wire:model="qtyCount" style="width: 40px" />
-                                <span class="btn btn1" >+</span>
+                                <span class="btn btn1" wire:click="decrementQty">-</span>
+                                <input type="text" readonly class="input-quantity" 
+                                value={{$this->qtyCount}} wire:model="qtyCount" style="width: 40px" />
+                                <span class="btn btn1" wire:click="incrementQty">+</span>
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button class="btn btn1"> <i class="bi bi-cart-fill"></i> Add To Cart</button>
+                            <button class="btn btn1" wire:click="addToCart({{$product->id}})"
+                            > <i class="bi bi-cart-fill"></i> Add To Cart</button>
                         </div>
                         <div class="mt-3">
                             <h5 class="mb-0">Description</h5>
