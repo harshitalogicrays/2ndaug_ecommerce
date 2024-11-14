@@ -32,7 +32,7 @@ class Viewproduct extends Component
                     'product_id'=>$productid,
                     'quantity'=>$this->qtyCount
                 ]);
-
+                $this->emit('cartAddedOrUpdated');
                 $this->dispatchBrowserEvent('message',[
                     'text'=>'product added to cart',
                     'type'=>'success','status'=>200

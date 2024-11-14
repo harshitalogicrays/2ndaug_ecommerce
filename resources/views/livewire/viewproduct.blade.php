@@ -4,10 +4,26 @@
             <div class="row">
                 <div class="col-md-5 mt-3" wire:ignore>
                     <div class="bg-white border">
-                        <img src="{{asset($product->productImages[0]->image)}}" class="img-fluid">
-                    </div>
-                </div>
-                <div class="col-md-7 mt-3">
+                        {{-- <img src="{{asset($product->productImages[0]->image)}}" class="img-fluid"> --}}
+                
+                        <div class="exzoom" id="exzoom">
+                            <!-- Images -->
+                            <div class="exzoom_img_box">
+                              <ul class='exzoom_img_ul'>
+                                @foreach ($product->productImages as $imageFile)
+                                <li><img src="{{asset($imageFile->image)}}"/></li>
+                                @endforeach
+                              </ul>
+                            </div>
+                        <div class="exzoom_nav"></div>
+                            <!-- Nav Buttons -->
+                            <p class="exzoom_btn">
+                                <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+                                <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+                            </p>
+                          </div>
+                    </div> </div>
+                <div class="col-md-6 mt-3">
                     <div class="product-view">
                         <h4 class="product-name">
                            {{$product->name}}
@@ -45,5 +61,23 @@
                         </div>
                     </div>
                 </div>
-            </div>
+           
 </div>   
+
+@push('scripts')
+    <script>
+        $(function(){
+
+$("#exzoom").exzoom({
+  "navWidth": 60,
+  "navHeight": 60,
+  "navItemNum": 5,
+  "navItemMargin": 7,
+  "navBorder": 1,
+  "autoPlay": false,
+  
+});
+
+});
+    </script>
+@endpush    

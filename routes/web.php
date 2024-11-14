@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\dashboardcontroller;
@@ -52,5 +54,8 @@ Route::controller(FrontendController::class)->group(function(){
     Route::get('/collection/{category}/{product}','viewproduct');
 });
 
+Route::get('/cart',[CartController::class,'index']);
+Route::get('/checkout-show',[CheckoutController::class,'index']);
+Route::get('/thank-you',[CheckoutController::class,'thankyou']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

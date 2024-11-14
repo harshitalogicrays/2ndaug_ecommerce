@@ -39,16 +39,20 @@
     <script src="{{asset('/admin/vendor/jquery/jquery.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="{{asset('exzoom/jquery.exzoom.css') }}" rel="stylesheet">
     @livewireScripts
 
     <script>
-        $( document ).ready(function() {
-            window.addEventListener('message',(event)=>{
-                alertify.set('notifier','position', 'top-left');
-                alertify.notify(event.detail.text,event.detail.type,2);
-            })
-        })
-       
+        $(document).ready(function() {
+            window.addEventListener('message', (event) => {
+                if (event.detail && event.detail.text && event.detail.type) {
+                    alertify.set('notifier', 'position', 'top-left');
+                    alertify.notify(event.detail.text, event.detail.type, 2);
+                } 
+            });
+        });
     </script>
+    <script src="{{asset('exzoom/jquery.exzoom.js')}}"></script>
+    @stack('scripts')
 </body>
 </html>
