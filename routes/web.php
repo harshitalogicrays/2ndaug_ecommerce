@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AOrderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FrontendController;
@@ -45,6 +47,9 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->group(function(){
             Route::get('destroy/{id}','destroy');
         });
     });
+
+    Route::get('/orders',[AOrderController::class,'index']);
+    Route::get('/vieworder/{id}',[AOrderController::class,'vieworder']);
 });
 
 Route::controller(FrontendController::class)->group(function(){
@@ -54,8 +59,13 @@ Route::controller(FrontendController::class)->group(function(){
     Route::get('/collection/{category}/{product}','viewproduct');
 });
 
-Route::get('/cart',[CartController::class,'index']);
-Route::get('/checkout-show',[CheckoutController::class,'index']);
-Route::get('/thank-you',[CheckoutController::class,'thankyou']);
+Route::middleware('auth')->group(function(){
+    Route::get('/cart',[CartController::class,'index']);
+    Route::get('/checkout-show',[CheckoutController::class,'index']);
+    Route::get('/thank-you',[CheckoutController::class,'thankyou']);
+    Route::get('/myorders',[OrderController::class,'index']);
+    Route::get('/vieworder/{id}',[OrderController::class,'vieworder']);
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

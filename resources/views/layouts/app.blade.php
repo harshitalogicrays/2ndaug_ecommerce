@@ -54,5 +54,6 @@
     </script>
     <script src="{{asset('exzoom/jquery.exzoom.js')}}"></script>
     @stack('scripts')
+    @stack('paypalscript')
 </body>
 </html>

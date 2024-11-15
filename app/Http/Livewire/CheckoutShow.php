@@ -23,7 +23,7 @@ class CheckoutShow extends Component
             'address'=>'required|string|max:500'
         ];
     }
-    protected $listeners=['validationForAll'];
+    protected $listeners=['validationForAll','transactionEmit'=>'paidOnlineOrder'];
     public function validationForAll(){
         $this->validate();
     }
@@ -84,6 +84,28 @@ class CheckoutShow extends Component
       }
     }
 
+    public function paidOnlineOrder($payment_id){
+        $this->payment_mode="Online";
+        $this->payment_id= $payment_id;
+        $onlineorder=$this->placeOrder();
+        if($onlineorder){
+          Cart::where('user_id',auth()->user()->id)->delete();
+          $this->emit('cartAddedOrUpdated');
+          $this->dispatchBrowserEvent('message', [
+              'text' => "Order Placed",
+              'type'=>'success',
+              'status'=>200            
+          ]);
+          return redirect()->to('thank-you');
+      }
+      else {
+          $this->dispatchBrowserEvent('message', [
+              'text' => "something went wrong",
+              'type'=>'error',
+              'status'=>404           
+          ]);
+      }
+    }
     public function render()
     {   
         $this->totalAmount = $this->totalCartAmount();

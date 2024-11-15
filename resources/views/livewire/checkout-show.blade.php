@@ -90,3 +90,57 @@
         </div>
     </div>
 </div>  
+
+
+@push('paypalscript')
+<script src="https://www.paypal.com/sdk/js?client-id=AW0Vyw2pbpzDke4n11lnKjQQcviAO9wTNkygFfDqxf6ON10Dmmk3qxo0O03Ydz-iEg-hTBrkL3bi0LNM&currency=USD"></script>
+
+<script>
+    paypal.Buttons({
+        onClick()  {
+            if (document.getElementById('fullname').value==''
+                || document.getElementById('email').value==''
+                || document.getElementById('phone').value==''
+                || document.getElementById('pincode').value==''
+                || document.getElementById('address').value==''
+            ) {
+                Livewire.emit('validationForAll');
+                return false;
+            }
+            else{
+                @this.set('fullname',document.getElementById('fullname').value);
+                @this.set('email',document.getElementById('email').value);
+                @this.set('phone',document.getElementById('phone').value);
+                @this.set('pincode',document.getElementById('pincode').value);
+                @this.set('address',document.getElementById('address').value);
+            }
+            },
+      createOrder:function(data,actions) {
+        return actions.order.create({
+            application_context:{
+                brand_name:'MiniFlipCart',
+                user_action:'PAY_NOW'
+            },
+        purchase_units: [{
+          amount: {
+            value: "{{$totalAmount}}"
+          }
+        }],
+        })
+      },
+      onApprove: function(data, actions) {
+
+let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+// This function captures the funds from the transaction.
+return actions.order.capture().then(function(orderData) {
+      const transaction=orderData.purchase_units[0].payments.captures[0];
+      if(transaction.status=='COMPLETED'){
+          Livewire.emit('transactionEmit',transaction.id);
+      }
+});
+},
+    }).render('#paypal-button-container');
+  </script>
+
+@endpush

@@ -17,9 +17,15 @@
                     <a class="nav-link" href="{{ url('/collection') }}">Categories</a>
                 </li>
             </ul>
+            <form class="d-flex" role="search">
+                <div class="input-group">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-danger" type="submit"><i class="bi bi-search"></i></button></div>
+              </form>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
+                
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
@@ -41,16 +47,22 @@
                     
                     </a>
                 </li>
+              
                     <li class="nav-item dropdown">
+
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ url('cart') }}"><i class="bi bi-cart"></i> My Cart</a>
+                             <hr/>
+                             <a class="dropdown-item" href="{{ url('myorders') }}"> <i class="bi bi-card-list"></i>My Orders</a>
+                             <hr/>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                               <i class="bi bi-arrow-left-circle"></i> {{ __('Logout') }}
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
