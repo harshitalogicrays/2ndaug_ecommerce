@@ -17,9 +17,9 @@
                     <a class="nav-link" href="{{ url('/collection') }}">Categories</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex" role="search" action="{{url('/search')}}">
                 <div class="input-group">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-danger" type="submit"><i class="bi bi-search"></i></button></div>
               </form>
 

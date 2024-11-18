@@ -15,4 +15,11 @@ class AOrderController extends Controller
         $order = Orders::where('id',$orderId)->first();
         return view('Admin.orders.vieworder',compact('order'));
     }
+    public function updateOrder($orderId,Request $request){
+        $order = Orders::where('id',$orderId)->first();
+        if($order){
+            $order->update([ 'status_message'=>$request->status]);
+        }
+        return redirect('/admin/orders')->with('message','order status updated');
+    }
 }

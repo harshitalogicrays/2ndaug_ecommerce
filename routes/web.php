@@ -50,6 +50,7 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->group(function(){
 
     Route::get('/orders',[AOrderController::class,'index']);
     Route::get('/vieworder/{id}',[AOrderController::class,'vieworder']);
+    Route::put('/orders/update/{id}',[AOrderController::class,'updateOrder']);
 });
 
 Route::controller(FrontendController::class)->group(function(){
@@ -57,6 +58,7 @@ Route::controller(FrontendController::class)->group(function(){
     Route::get('/collection','collection');
     Route::get('/collection/{id}','cproducts');
     Route::get('/collection/{category}/{product}','viewproduct');
+    Route::get('/search','searchproduct');
 });
 
 Route::middleware('auth')->group(function(){

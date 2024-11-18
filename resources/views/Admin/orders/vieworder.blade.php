@@ -4,7 +4,10 @@
     <div class="card">
         <div class="card-body shadow p-4 bg-white">
             <h1><i class="bi bi-cart-fill"></i> Order Details
-                <a name="" id="" class="btn btn-danger float-right" href="{{url('admin/orders')}}" role="button">Back</a>
+                <a name="" id="" class="btn btn-danger float-right ml-2" href="{{url('admin/orders')}}" role="button">Back</a>
+                <a name="" id="" class="btn btn-info float-right ml-2" href="{{url('admin/mail/invoice')}}" role="button">Send Mail</a>
+                <a name="" id="" class="btn btn-warning float-right ml-2" href="{{url('admin/view/invoice')}}" role="button">View Invoice</a>
+                <a name="" id="" class="btn btn-primary float-right ml-2" href="{{url('admin/download/invoice')}}" role="button">Download Invoice</a>
             </h1>
                 <hr/>
         <div class="row shadow">
@@ -14,9 +17,32 @@
                <p>Order Id: {{$order->id}}</p>
                <p>Tracking Id/No: {{$order->tracking_no}}</p>
                <p>Ordered Date: {{$order->created_at}}</p>
-               <p>Payment Mode: {{$order->payment_mode}}</p>
-               <p class="text-success p-3 border">Order Status Message: {{$order->status_message}}</p>
+               <p>Payment Mode: {{$order->payment_mode}}</p>     
+                @if ($order->status_message !='delivered')
+               <div class="card-body">
+               <form method="post" action="{{url('/admin/orders/update/'.$order->id)}}">
+               @csrf
+               @method('PUT')
+               <div class="mb-3"   >
+                   <label for="" class="form-label">Order Status</label>
+                   <select class="form-control" name="status" >
+                       <option {{$order->status_message=='in progress' ? 'selected':''}}>in progress</option>
+                       <option {{$order->status_message=='processing' ? 'selected':''}}>processing</option>
+                       <option {{$order->status_message=='shipped' ? 'selected':''}}>shipped</option>
+                       <option {{$order->status_message=='out for delivery' ? 'selected':''}}>out for delivery</option>
+                       <option {{$order->status_message=='cancelled' ? 'selected':''}}>cancelled</option>
+                       <option {{$order->status_message=='delivered' ? 'selected':''}}>delivered</option>
+                   </select>
+               </div>
+               <button type="submit" class="btn btn-primary"> Update Status </button>
                
+               </form>
+               </div>
+               @else
+               <p class="text-success p-3 border">Order Status Message: {{$order->status_message}}</p>
+              
+           @endif 
+
             </div>
             <div class="col-6 p-2">
                 <h2> User Details</h2><hr>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 
@@ -34,5 +35,15 @@ class FrontendController extends Controller
             }
         }
       
+    }
+    function searchproduct(Request $request){
+        if($request->search !=null){
+            $products=Products::where('name','LIKE','%'.$request->search."%")->orWhere('brand','LIKE','%'.$request->search."%")->latest()->paginate(5);
+            return view('searchproduct',compact('products'));
+         }
+         else{
+             $products=Products::paginate(5);
+             return view('searchproduct',compact('products'));
+         }
     }
 }
