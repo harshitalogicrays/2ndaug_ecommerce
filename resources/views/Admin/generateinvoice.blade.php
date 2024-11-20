@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Invoice {{$order->id}}</title>
+    <title>Invoice</title>
 
     <style>
         html,
@@ -79,8 +79,7 @@
     </style>
 </head>
 <body>
-
-    <table class="order-details">
+     <table class="order-details">
         <thead>
             <tr>
                 <th width="50%" colspan="2">
@@ -136,12 +135,10 @@
             </tr>
         </tbody>
     </table>
-
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
                 <th scope="col">Item ID</th>
-                <th scope="col">Image</th>
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
@@ -154,33 +151,25 @@
             @endphp
             @forelse ($order->orderItems as $orderItem)
             <tr class="">
-                <td>{{$orderItem->id}}</td>
-                <td>
-                    @if ($orderItem->product->productImages->count()>0)
-                        <img src="{{asset($orderItem->product->productImages[0]->image)}}" alt="{{$orderItem->product->name}}" style="width: 50px; height: 50px" > 
-                        @else
-                        <img src="" alt="{{$orderItem->product->name}}" style="width: 50px; height: 50px" >    
-                        @endif
-
-                </td>
-                <td>{{$orderItem->product->name}}</td>
-                <td>{{$orderItem->price}}</td>
-                <td>{{$orderItem->quantity}}</td>
-                <td>{{$orderItem->price * $orderItem->quantity}}
-                @php
-                    $totalPrice += $orderItem->price * $orderItem->quantity
-                @endphp
-                </td>
-            </tr>
+        <td>{{$orderItem->id}}</td>
+        <td>{{$orderItem->product->name}}</td>
+        <td>{{$orderItem->price}}</td>
+        <td>{{$orderItem->quantity}}</td>
+        <td>{{$orderItem->price * $orderItem->quantity}}
+        @php
+            $totalPrice += $orderItem->price * $orderItem->quantity
+        @endphp
+        </td>
+    </tr>
             @empty
-                <tr><td colspan="6">No Order Item Found</td></tr>
+                <tr><td colspan="5">No Order Item Found</td></tr>
             @endforelse
             <tr>
-                <td colspan="5" class="fw-bold">Total Amount:</td>
+                <td colspan="4" class="fw-bold">Total Amount:</td>
                 <td colspan="1" class="fw-bold">{{$totalPrice}}</td>
             </tr>
         </tbody>
-    </table>
+    </table> 
 
     <br>
     <p class="text-center">

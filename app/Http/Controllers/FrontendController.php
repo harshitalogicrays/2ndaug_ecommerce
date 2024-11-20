@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class FrontendController extends Controller
 {   
     function index(){
-        return view('index');
+        $products = Products::where('status','=','0')->get();
+        return view('index',compact('products'));
     }
     function collection(){
         $categories = Categories::where('status','=','0')->get();

@@ -16,10 +16,11 @@ class AdminMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {     if(Auth::user()->role_as=='1'){
-        return redirect('/home')->with('message','Access Denied. You are not an Admin');
+    {    if(Auth::user()->role_as=='1'){
+        return redirect('/home')->with('status','Access Denied as you are not admin');
     }
-        return $next($request);
+     else 
+             return $next($request);
 
     }
 }

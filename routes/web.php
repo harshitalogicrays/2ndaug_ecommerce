@@ -47,12 +47,15 @@ Route::prefix('/admin')->middleware(['auth','isAdmin'])->group(function(){
             Route::get('destroy/{id}','destroy');
         });
     });
-
-    Route::get('/orders',[AOrderController::class,'index']);
-    Route::get('/vieworder/{id}',[AOrderController::class,'vieworder']);
-    Route::put('/orders/update/{id}',[AOrderController::class,'updateOrder']);
+    Route::controller(AOrderController::class)->group(function(){
+        Route::get('/orders','index');
+        Route::get('/vieworder/{id}','vieworder');
+        Route::put('orders/update/{id}','updateOrder');
+        Route::get('view/invoice/{id}','viewinvoice');
+        Route::get('download/invoice/{id}','downloadinvoice');
+        Route::get('mail/invoice/{id}','sendmail');
+    });
 });
-
 Route::controller(FrontendController::class)->group(function(){
     Route::get('/','index');
     Route::get('/collection','collection');

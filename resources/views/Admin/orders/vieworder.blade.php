@@ -5,9 +5,9 @@
         <div class="card-body shadow p-4 bg-white">
             <h1><i class="bi bi-cart-fill"></i> Order Details
                 <a name="" id="" class="btn btn-danger float-right ml-2" href="{{url('admin/orders')}}" role="button">Back</a>
-                <a name="" id="" class="btn btn-info float-right ml-2" href="{{url('admin/mail/invoice')}}" role="button">Send Mail</a>
-                <a name="" id="" class="btn btn-warning float-right ml-2" href="{{url('admin/view/invoice')}}" role="button">View Invoice</a>
-                <a name="" id="" class="btn btn-primary float-right ml-2" href="{{url('admin/download/invoice')}}" role="button">Download Invoice</a>
+                <a name="" id="" class="btn btn-info float-right ml-2" href="{{url('admin/mail/invoice/'.$order->id)}}" role="button">Send Mail</a>
+                <a name="" id="" class="btn btn-warning float-right ml-2" href="{{url('admin/view/invoice/'.$order->id)}}" role="button">View Invoice</a>
+                <a name="" id="" class="btn btn-primary float-right ml-2" href="{{url('admin/download/invoice/'.$order->id)}}"  role="button">Download Invoice</a>
             </h1>
                 <hr/>
         <div class="row shadow">
